@@ -22,10 +22,10 @@ def _get_access_token():
     if user_auth_file not in os.listdir(f"{root_dir}/{app_dir}"):
         print("You need to grant access to Application. "
               "Follow URL and copy code to input")
-        print(f"https://www.dropbox.com/oauth2/authorize?"
+        print(f"\033[34mhttps://www.dropbox.com/oauth2/authorize?"
               f"client_id={APP_KEY}&"
               f"token_access_type=offline&"
-              f"response_type=code")
+              f"response_type=code\033[0m")
         user_code = input("code: ")
 
         response = requests.post("https://api.dropboxapi.com/oauth2/token",
@@ -81,7 +81,7 @@ def put_file(local_path, dropbox_path, force_upload):
 
     if _is_dropbox_file_exists(dropbox_path, user_token):
         if not force_upload:
-            raise NameError(f"\033[31mFile '{dropbox_path}' already exists."
+            raise NameError(f"\033[31mFiles '{dropbox_path}' already exists."
                             f"\033[0m")
 
         session = requests.Session()
@@ -113,7 +113,7 @@ def get_file(dropbox_path, local_path):
     user_token = _get_access_token()
 
     if not _is_extension_similar(dropbox_path, local_path):
-        raise NameError(f"\033[31mFile '{dropbox_path}' and '{local_path}' "
+        raise NameError(f"\033[31mFiles '{dropbox_path}' and '{local_path}' "
                         f"has different extensions.\033[0m")
 
     if not _is_dropbox_file_exists(dropbox_path, user_token):
