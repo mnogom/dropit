@@ -16,6 +16,3 @@ test:
 
 coverage:
 	poetry run pytest --cov=dropit --cov-report xml tests
-
-run:
-	poetry run dropit
