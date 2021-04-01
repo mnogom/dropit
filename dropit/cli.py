@@ -11,7 +11,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Get/Put file from Dropbox")
     parser.add_argument(dest="command", choices=["get", "put"])
     parser.add_argument("-f", "--force",
-                        help="force update file (remove from dropbox if "
+                        help="force update file (rewrite file if it "
                              "already exists and upload)",
                         action="store_true", default=False)
     parser.add_argument("-s", "--share",
