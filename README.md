@@ -2,7 +2,7 @@
 _GET_ and _PUT_ file to your _Dropbox_ 
 
 ---
-### Hexlet tests and linter status:
+### Build and linter status:
 [![Python package](https://github.com/mnogom/dropit/actions/workflows/python-package.yml/badge.svg)](https://github.com/mnogom/dropit/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/71ccc38978dd11b25cb9/maintainability)](https://codeclimate.com/github/mnogom/dropit/maintainability)
 
@@ -61,7 +61,7 @@ poetry env list --full-path
 
 ~/<path>/<to>/<project>/dropit/.venv (Activated)
 ```
-* to be sure that all works try to start tests
+* to be sure that all works try to start tests. Tests will work after first run script.
 ```commandline
 make test
 
@@ -75,7 +75,7 @@ tests/test_drop.py::test_app_check PASSED                                [100%]
 ### Features
 1. Can get a file from Dropbox
 2. Can put a file to Dropbox
-3. Can force put a file to Dropbox (overwrite)
+3. Can use force (overwrite a local file or in Dropbox)
 4. Can share an uploaded file. Url will be in console and your clipboard
 5. Check extensions of files
 

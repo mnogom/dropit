@@ -1,7 +1,7 @@
 import pytest
 import requests
 
-from dropit.dropbox_explorer import get_file, put_file
+from dropit.manager import get_file, put_file
 
 
 STORED_DIR = "tests/fixtures/stored"

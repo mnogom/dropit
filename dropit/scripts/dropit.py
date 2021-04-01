@@ -3,7 +3,7 @@
 """Entry point."""
 
 from dropit.cli import parse_args
-from dropit.dropbox_explorer import put_file, get_file
+from dropit.manager import put_file, get_file
 
 
 def main():
