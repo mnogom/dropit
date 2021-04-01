@@ -16,3 +16,6 @@ test:
 
 coverage:
 	poetry run pytest --cov=dropit --cov-report xml tests
+
+make dev:
+	poetry run dropit put ~/Downloads/task3.jpg test/task3.jpg -f -s

@@ -14,9 +14,13 @@ def parse_args():
                         help="force update file (remove from dropbox if "
                              "already exists and upload)",
                         action="store_true", default=False)
+    parser.add_argument("-s", "--share",
+                        help="get url for file from Dropbox. Be careful. "
+                             "File would be visible for everyone",
+                        action="store_true", default=False)
     parser.add_argument(dest="src_path")
     parser.add_argument(dest="dest_path")
 
     args = parser.parse_args()
 
-    return args.command, args.src_path, args.dest_path, args.force
+    return args.command, args.src_path, args.dest_path, args.force, args.share

@@ -16,7 +16,7 @@ pip3 install --upgrade git+https://github.com/mnogom/dropit.git
 ### Usage
 1. From command line
 ```commandline
-usage: dropit [-h] [-f] {get,put} src_path dest_path
+usage: dropit [-h] [-f] [-s] {get,put} src_path dest_path
 
 Get/Put file from Dropbox
 
@@ -28,6 +28,7 @@ positional arguments:
 optional arguments:
   -h, --help   show this help message and exit
   -f, --force  force update file (remove from dropbox if already exists and upload)
+  -s, --share  get url for file from Dropbox. Be careful. File would be visible for everyone
 ```
 
 2. From python
@@ -72,10 +73,11 @@ tests/test_drop.py::test_app_check PASSED                                [100%]
 
 ---
 ### Features
-1. Can get file from Dropbox
-2. Can put file to Dropbox
-3. Can force put file to Dropbox (overwrite)
-4. Check extensions of files
+1. Can get a file from Dropbox
+2. Can put a file to Dropbox
+3. Can force put a file to Dropbox (overwrite)
+4. Can share an uploaded file. Url will be in console and your clipboard
+5. Check extensions of files
 
 ---
 ### How to
@@ -90,3 +92,7 @@ tests/test_drop.py::test_app_check PASSED                                [100%]
 3. Util check extensions of files
 
 [![asciicast](https://asciinema.org/a/XMXSjgLTCyEsP5IoaiLqIXu0K.svg)](https://asciinema.org/a/XMXSjgLTCyEsP5IoaiLqIXu0K)
+
+4. Put and share file to the World
+
+[![asciicast](https://asciinema.org/a/tP01ZNn2CsBka0SJh69mw91G3.svg)](https://asciinema.org/a/tP01ZNn2CsBka0SJh69mw91G3)

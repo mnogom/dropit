@@ -20,9 +20,11 @@ def test_drops(test_file):
 
     put_file(f"{STORED_DIR}/{test_file}",
              f"{DROPBOX_DIR}/{test_file}",
-             force_upload=True)
+             force_upload=True,
+             want_to_share=False)
     get_file(f"{DROPBOX_DIR}/{test_file}",
-             f"{RECEIVED_DIR}/{test_file}")
+             f"{RECEIVED_DIR}/{test_file}",
+             force_download=True)
 
     with open(f"{RECEIVED_DIR}/{test_file}", "rb") as file:
         received_data = file.read()
