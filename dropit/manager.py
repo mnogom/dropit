@@ -5,11 +5,11 @@ import requests
 import json
 import clipboard
 
-from dropit.authorization import get_access_token
+from dropit.authorization import get_access_token, remove_tokens
 
 
 def _is_extension_similar(src_path, dest_path):
-    """Check if extensions of files are similar"""
+    """Check if extensions of files are similar."""
 
     _, src_extension = os.path.splitext(src_path)
     _, dest_extension = os.path.splitext(dest_path)
@@ -17,7 +17,7 @@ def _is_extension_similar(src_path, dest_path):
 
 
 def _is_dropbox_file_exists(dropbox_path, user_token):
-    """Check if file already exists on dropbox"""
+    """Check if file already exists on dropbox."""
 
     session = requests.Session()
     session.headers = {"Authorization": f"Bearer {user_token}",
@@ -32,14 +32,14 @@ def _is_local_file_exists(local_path):
 
 
 def put_file(local_path, dropbox_path,
-             force_upload=False,
-             want_to_share=False):
+             force=False,
+             share=False):
     """Put file from local storage to Dropbox.
 
     :param local_path: local file path
     :param dropbox_path: dropbox file path
-    :param force_upload: if flag is True - function will rewrite Dropbox file
-    :param want_to_share: if flag is True - function will share url for
+    :param force: if flag is True - function will rewrite Dropbox file
+    :param share: if flag is True - function will share url for
     Dropbox file
     :return:
     """
@@ -56,7 +56,7 @@ def put_file(local_path, dropbox_path,
                         f"\033[0m")
 
     if _is_dropbox_file_exists(dropbox_path, user_token):
-        if not force_upload:
+        if not force:
             raise NameError(f"\033[31m"
                             f"File '{dropbox_path}' already exists. "
                             f"use flag '-f' if you want rewrite it."
@@ -76,7 +76,7 @@ def put_file(local_path, dropbox_path,
         data = file.read()
     session.post("https://content.dropboxapi.com/2/files/upload", data=data)
 
-    if want_to_share:
+    if share:
         session.headers = {"Authorization": f"Bearer {user_token}",
                            "Content-Type": "application/json"}
         response = session.post(
@@ -92,12 +92,12 @@ def put_file(local_path, dropbox_path,
 
 
 def get_file(dropbox_path, local_path,
-             force_download=False):
+             force=False):
     """Get file from Dropbox to local storage.
 
     :param local_path: local file path
     :param dropbox_path: dropbox file path
-    :param force_download: if flag is True - function will rewrite local file
+    :param force: if flag is True - function will rewrite local file
     :return:
     """
 
@@ -118,7 +118,7 @@ def get_file(dropbox_path, local_path,
                                 f"doesn't exists."
                                 f"\033[0m")
 
-    if _is_local_file_exists(local_path) and force_download is False:
+    if _is_local_file_exists(local_path) and force is False:
         raise NameError(f"\033[31m"
                         f"File '{local_path}' already exists. "
                         f"use flag '-f' if you want rewrite it."
@@ -131,3 +131,9 @@ def get_file(dropbox_path, local_path,
 
     with open(local_path, "wb") as file:
         file.write(response.content)
+
+
+def logout_app():
+    """Logout app."""
+
+    remove_tokens()

@@ -4,6 +4,8 @@ import requests
 import os
 import clipboard
 import json
+import prompt
+
 
 ROOT_DIR = os.path.expanduser("~")
 APP_DIR = ".dropit_cache"
@@ -21,9 +23,6 @@ RESPONSE_STATUSES = {400: "Bad input parameter.",
 def _get_auth_code():
     """Get auth code from Dropbox. Uses on first script run."""
 
-    if APP_DIR not in os.listdir(ROOT_DIR):
-        os.mkdir(f"{ROOT_DIR}/{APP_DIR}")
-
     url_to_code = (f"https://www.dropbox.com/oauth2/authorize?"
                    f"client_id={APP_KEY}&"
                    f"token_access_type=offline&"
@@ -36,7 +35,7 @@ def _get_auth_code():
           f"{url_to_code}"
           f"\033[0m")
     print("URL already in your clipboard.")
-    auth_code = input("code: ")
+    auth_code = prompt.secret("code: ")
     return auth_code
 
 
@@ -89,6 +88,9 @@ def get_access_token():
 
             return tokens["access_token"]
 
+    if not os.path.isdir(f"{ROOT_DIR}/{APP_DIR}"):
+        os.mkdir(f"{ROOT_DIR}/{APP_DIR}")
+
     auth_code = _get_auth_code()
     response = requests.post("https://api.dropboxapi.com/oauth2/token",
                              data={"code": auth_code,
@@ -102,3 +104,12 @@ def get_access_token():
         file.write(json.dumps(tokens, indent=2))
 
     return tokens["access_token"]
+
+
+def remove_tokens():
+    """Remove all user tokens."""
+
+    if os.path.isdir(f"{ROOT_DIR}/{APP_DIR}"):
+        if os.path.isfile(f"{ROOT_DIR}/{APP_DIR}/{USER_TOKENS_FILE}"):
+            os.remove(f"{ROOT_DIR}/{APP_DIR}/{USER_TOKENS_FILE}")
+        os.removedirs(f"{ROOT_DIR}/{APP_DIR}")
