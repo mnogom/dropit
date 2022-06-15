@@ -101,8 +101,6 @@ cd dropit
 * setup env. Uses poetry. Be sure you have it.
 ```commandline
 pip install --upgrade poetry --user
-```
-```commandline
 make install
 ```
 * to check virtural env

@@ -1,10 +1,10 @@
 [tool.poetry]
 name = "dropit"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Konstantin Freidlin <freidlinks@ya.ru>"]
 packages = [
-    { include = "dropit"}
+    { include = "dropit" }
 ]
 
 [tool.poetry.dependencies]

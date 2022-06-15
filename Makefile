@@ -8,8 +8,7 @@ package-install:
 	python3 -m pip install --user dist/*.whl --force-reinstall
 
 lint:
-	poetry run flake8 dropit
-	poetry run flake8 tests
+	poetry run flake8 --config linter-setup.cfg
 
 test:
 	poetry run pytest tests/test_drop.py -vv
